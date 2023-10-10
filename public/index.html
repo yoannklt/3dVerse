@@ -15,6 +15,11 @@
                 SDK3DVerse.setupDisplay(document.getElementById('display_canvas'));
                 SDK3DVerse.startStreamer(connectionInfo);
 
+                cube = AppConfig.getElementByName("cube");
+                while (true){
+                    cube.transform.x++;
+                }
+
             });
         </SCRIPT>
     </HEAD>
