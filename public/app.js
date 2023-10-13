@@ -8,6 +8,15 @@ window.addEventListener('load', async () => {
     SDK3DVerse.notifier.on('onLoadingEnded', (status) => document.getElementById("message").innerHTML = status.message);
 
     SDK3DVerse.setupDisplay(canvas);
+
+    const settings = {
+        speed: 4,
+        sensitivity: 0.1,
+        damping: 0.65,
+        angularDamping: 0.65
+    };
+    SDK3DVerse.updateControllerSetting(settings);
+
     SDK3DVerse.startStreamer(connectionInfo);
 
     const viewport = {
@@ -24,29 +33,15 @@ window.addEventListener('load', async () => {
     await SDK3DVerse.setViewports([viewport]);
     SDK3DVerse.actionMap.setFrenchKeyboardBindings();
     SDK3DVerse.actionMap.propagate();
-
-    canvas.addEventListener(
-        'mouseup',
-        async (e) => {
-            var keepOldSelection = e.ctrlKey || e.metaKey;
-            var { entity } = await SDK3DVerse.engineAPI.castScreenSpaceRay(e.clientX, e.clientY, true, keepOldSelection);
-
-            if (entity) {
-                document.getElementById('selected_entity').innerHTML = `Selected entity : <strong>${entity.getName()}</strong>`;
-            }
-        },
-        false
-    );
     
-    
-    var cube;
+    var monstre;
     console.log("initialized cube");
 
-    var entities = await SDK3DVerse.engineAPI.findEntitiesByEUID('f82224d3-0203-4638-b30c-eb052de8cb5a');
+    var entities = await SDK3DVerse.engineAPI.findEntitiesByEUID('2b934113-54ad-4497-9d53-ae3282fc716f');
 
-    cube = entities[0];
+    monstre = entities[0];
 
-    cube.setPosition([1, 1, 1]);
+    SDK3DVerse.engineAPI.setEntityVisibility(monstre, false);
     console.log("cube position updated");
 
     SDK3DVerse.engineAPI.propagateChanges();
