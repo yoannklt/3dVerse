@@ -10,7 +10,7 @@ window.addEventListener('load', async () => {
     SDK3DVerse.setupDisplay(canvas);
 
     const settings = {
-        speed: 4,
+        speed: 0.25,
         sensitivity: 0.1,
         damping: 0.65,
         angularDamping: 0.65
@@ -35,19 +35,12 @@ window.addEventListener('load', async () => {
     SDK3DVerse.actionMap.propagate();
     
     var monstre;
-    console.log("initialized cube");
 
     var entities = await SDK3DVerse.engineAPI.findEntitiesByEUID('2b934113-54ad-4497-9d53-ae3282fc716f');
-
     monstre = entities[0];
 
-    SDK3DVerse.engineAPI.setEntityVisibility(monstre, false);
-    console.log("cube position updated");
-
     SDK3DVerse.engineAPI.propagateChanges();
-
-    console.log("end of code");
-
+    
 });
 
 
